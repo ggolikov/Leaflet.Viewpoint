@@ -2,27 +2,54 @@
 L.Viewpoint = L.FeatureGroup.extend({
     initialize: function (latlngs, options) {
         L.Util.setOptions(this, options);
-
-        this._center = L.marker(latlngs);
-
-        if (options && options.directions) {
-            this._setDirections(options.directions);
-        }
+        this._createLayers(latlngs);
         L.LayerGroup.prototype.initialize.call(this, [
             this._center,
             this._directions
         ]);
     },
+
+    _createLayers: function (latlngs) {
+        this._centerIcon = L.icon({
+            iconUrl: '../img/centerIcon.svg',
+            iconSize: [20, 20]
+        });
+
+        this._center = L.marker(latlngs, {
+            icon: this._centerIcon,
+            draggable: true
+        });
+
+        if (this.options && this.options.directions) {
+            this._setDirections(this.options.directions);
+        }
+    },
+
     _setDirections: function (directions) {
-        var lines = [],
+        var LEN = 15;
+
+        var arrows = [],
+            arrowIcon = L.icon({
+                iconUrl: '../img/arrowIcon.svg',
+                iconSize: [10, 10]
+            }),
+            latLng,
+            line;
+
             center = this._center.getLatLng();
-
-        directions.forEach(function(point){
-            var latLng = L.latLng(point);
-            lines.push(L.polyline([center, latLng]))
-        })
-
-        this._directions = L.layerGroup(lines);
+            directions.forEach(function(angle){
+                latLng = L.GeometryUtil.destination(center, angle, LEN);
+                line = L.polyline([latLng, center]);
+                line.on('click', function(e){
+                    e.target.setStyle({color: 'yellow'});
+                })
+                // arrows.push(L.marker(latLng, {
+                //     icon: arrowIcon,
+                //     draggable: true
+                // }))
+                arrows.push(line);
+            });
+        this._directions = L.layerGroup(arrows);
     }
 });
 

@@ -12,11 +12,17 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], center: new L.LatLng(55.786498, 37.629888), zoom: 18, maxZoom: 22});
 
     // var point = L.marker([55.786498, 37.629888])/*.addTo(map)*/;
+    console.log(L.GeometryUtil);
 
+    var directions = [];
+    // for (var i = 0; i <= 360; i+= 30) {
+    //     directions.push(i);
+    // }
+    for (var i = 0; i <= 100; i++) {
+        directions.push(Math.random() * 1000);
+    }
     var vp = L.viewpoint([55.786498, 37.629888], {
-        directions:[
-            [55.796498, 37.639888],
-            [55.776498, 37.619888],
-            [55.816498, 37.659888]
-        ]}).addTo(map);
+            directions: directions
+        })
+        .addTo(map);
     console.log(vp);
