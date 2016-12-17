@@ -7,12 +7,18 @@
   "author": "Grigory Golikov gr.golikov@gmail.com",
   "license": "MIT",
   "scripts": {
-    "watch": "watchify -v -d example/js/app.js -o example/js/bundle.js"
+    "watch": "watchify -v -d example/js/app.js -o example/js/bundle.js",
+    "serve": "serve -p 3001",
+    "start": "npm run watch & npm run serve"
   },
   "dependencies": {
+    "babelify": "^7.3.0",
     "jsdoc": "^3.4.3",
     "leaflet": "^1.0.1",
-    "leaflet-geometryutil": "^0.8.0"
+    "leaflet-geometryutil": "^0.8.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "reactify": "^1.1.1"
   },
   "devDependencies": {
     "browserify": "^13.1.1",

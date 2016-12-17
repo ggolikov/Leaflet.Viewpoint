@@ -1,4 +1,7 @@
 var L = global.L || require('leaflet');
+var React = require('react');
+console.log(React);
+var ReactDOM = require('react-dom');
 require('../../index.js');
 var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
         maxZoom: 18,
