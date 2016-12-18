@@ -17,15 +17,18 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     // var point = L.marker([55.786498, 37.629888])/*.addTo(map)*/;
     console.log(L.GeometryUtil);
 
-    var directions = [];
-    // for (var i = 0; i <= 360; i+= 30) {
-    //     directions.push(i);
-    // }
-    for (var i = 0; i <= 100; i++) {
-        directions.push(Math.random() * 1000);
-    }
+    var directions = [0, 90];
     var vp = L.viewpoint([55.786498, 37.629888], {
             directions: directions
         })
         .addTo(map);
+
+    vp._directions.eachLayer(function(layer) {
+        layer.on('click', function(e){
+            e.target.setStyle({color: 'yellow'});
+            document.getElementsByClassName('content')[0].innerHTML =
+                '<img src="./images/' + e.target.angle + '.jpg">' +
+                '</img>';
+        });
+    });
     console.log(vp);

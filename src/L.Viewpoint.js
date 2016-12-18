@@ -40,13 +40,7 @@ L.Viewpoint = L.FeatureGroup.extend({
             directions.forEach(function(angle){
                 latLng = L.GeometryUtil.destination(center, angle, LEN);
                 line = L.polyline([latLng, center]);
-                line.on('click', function(e){
-                    e.target.setStyle({color: 'yellow'});
-                })
-                // arrows.push(L.marker(latLng, {
-                //     icon: arrowIcon,
-                //     draggable: true
-                // }))
+                line.angle = angle;
                 arrows.push(line);
             });
         this._directions = L.layerGroup(arrows);
