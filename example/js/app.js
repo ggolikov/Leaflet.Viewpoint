@@ -12,7 +12,8 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     	attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     })
     // map55.788096 N, 37.631392 E
-    map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], center: new L.LatLng(55.786498, 37.629888), zoom: 18, maxZoom: 22});
+    map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], center: new L.LatLng(55.786498, 37.629888), zoom: 18, maxZoom: 22}),
+    root = document.getElementById('content');
 
     // var point = L.marker([55.786498, 37.629888])/*.addTo(map)*/;
     console.log(L.GeometryUtil);
@@ -26,9 +27,20 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     vp._directions.eachLayer(function(layer) {
         layer.on('click', function(e){
             e.target.setStyle({color: 'yellow'});
-            document.getElementsByClassName('content')[0].innerHTML =
-                '<img src="./images/' + e.target.angle + '.jpg">' +
-                '</img>';
+            var path = './images/' + e.target.angle + '.jpg'
+            var image = React.createElement(
+                'img',
+                {src: path}
+            );
+            console.log(image);
+            image.onclick = function() {
+                window.open(path,'_blank');
+            }
+
+            ReactDOM.render(
+                image,
+                root
+            );
         });
     });
     console.log(vp);
