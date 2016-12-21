@@ -24,23 +24,23 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
         })
         .addTo(map);
 
-    vp._directions.eachLayer(function(layer) {
-        layer.on('click', function(e){
-            e.target.setStyle({color: 'yellow'});
-            var path = './images/' + e.target.angle + '.jpg'
-            var image = React.createElement(
-                'img',
-                {src: path}
-            );
-            console.log(image);
-            image.onclick = function() {
-                window.open(path,'_blank');
-            }
-
-            ReactDOM.render(
-                image,
-                root
-            );
-        });
-    });
+    // vp._directions.eachLayer(function(layer) {
+    //     layer.on('click', function(e){
+    //         e.target.setStyle({color: 'yellow'});
+    //         var path = './images/' + e.target.angle + '.jpg'
+    //         var image = React.createElement(
+    //             'img',
+    //             {src: path}
+    //         );
+    //         console.log(image);
+    //         image.onclick = function() {
+    //             window.open(path,'_blank');
+    //         }
+    //
+    //         ReactDOM.render(
+    //             image,
+    //             root
+    //         );
+    //     });
+    // });
     console.log(vp);
