@@ -6,7 +6,8 @@ L.Viewpoint = L.CircleMarker.extend({
         L.CircleMarker.prototype.initialize.call(this, latlng, options);
     },
 
-    _createLayers: function (latlngs) {
+    _createLayers: function (latlng) {
+        this._direction = L.SVG.create('circle');
     },
 
     _setDirections: function (directions) {

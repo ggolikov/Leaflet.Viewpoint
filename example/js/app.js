@@ -1,6 +1,5 @@
 var L = global.L || require('leaflet');
 var React = require('react');
-console.log(React);
 var ReactDOM = require('react-dom');
 require('../../index.js');
 var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
@@ -16,14 +15,13 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     root = document.getElementById('content');
 
     // var point = L.marker([55.786498, 37.629888])/*.addTo(map)*/;
-    console.log(L.GeometryUtil);
 
     var directions = [0, 90];
     var vp = L.viewpoint([55.786498, 37.629888], {
             directions: directions
         })
         .addTo(map);
-
+var line = L.polyline([L.latLng([55.786498, 37.629888]), L.latLng([55.886498, 37.729888])]).addTo(map);
     // vp._directions.eachLayer(function(layer) {
     //     layer.on('click', function(e){
     //         e.target.setStyle({color: 'yellow'});
@@ -44,3 +42,6 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     //     });
     // });
     console.log(vp);
+    console.log(vp.getElement());
+    console.log(vp._direction);
+    console.log(line);
