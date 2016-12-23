@@ -1,58 +1,3 @@
-L.SVG.include({
-    _setArrowStyle: function (arrow, options) {
-        // var options = layer.options.arrow,
-        if (options.stroke) {
-            arrow.setAttribute('stroke', options.color);
-            arrow.setAttribute('stroke-width', options.weight);
-            arrow.setAttribute('stroke-opacity', options.opacity);
-        } else {
-            arrow.setAttribute('stroke', 'none');
-        }
-
-        if (options.fill) {
-            arrow.setAttribute('fill', options.fillColor);
-            arrow.setAttribute('fill-opacity', options.fillOpacity);
-        } else {
-            arrow.setAttribute('fill', 'none');
-        }
-    },
-
-    _updateArrows: function (layer) {
-        var arrows = layer._arrows,
-            arrowOptions = layer.options.arrow,
-            len = arrows.length,
-            g = this._rootGroup;
-
-        for (var i = 0; i < len; i++) {
-            this._updateArrow(arrows[i], layer);
-
-            g.appendChild(arrows[i]);
-        }
-    },
-
-    _updateArrow: function (arrow, layer) {
-        var options = layer.options.arrow,
-            width = options.width,
-            height = options.height,
-            offset = options.offset,
-            r = layer._radius,
-            x = layer._point.x,
-            y = layer._point.y,
-            angle = Number(arrow.getAttribute('angle')),
-
-            // first shift - radius, second shift - middlepoint of arrow basis
-            dx = - (r + offset) * Math.sin(angle * Math.PI / 180) - (width / 2) * Math.sin((90 - angle) * Math.PI / 180),
-            dy = (r + offset) * Math.cos(angle * Math.PI / 180) - (width / 2) * Math.cos((90 - angle) * Math.PI / 180);
-
-        arrow.setAttribute('d', 'M 0 0 L ' + width + ' 0 L ' + (width / 2) + ' ' + height + ' z');
-        arrow.setAttribute('transform', 'translate(' + (x + dx) + ',' + (y + dy) + ') ' + 'rotate(' + angle + ')');
-
-        // this._setArrowStyle(arrow, options);
-
-        return arrow;
-    }
-});
-
 
 L.Viewpoint = L.CircleMarker.extend({
     options: {
@@ -68,25 +13,33 @@ L.Viewpoint = L.CircleMarker.extend({
 		    fill: true,
 		    fillColor: 'black',
 		    fillOpacity: 1
-        }
+        },
+        directions: []
     },
 
     initialize: function (latlng, options) {
-        // L.Util.setOptions(this, options);
         this.setOptions(this, options);
         this._arrows = [];
-        this._createArrows();
 
         L.CircleMarker.prototype.initialize.call(this, latlng, this.options);
     },
 
+    onAdd: function () {
+        this._renderer._createArrows(this);
+        L.CircleMarker.prototype.onAdd.call(this);
+    },
+
+    onRemove: function () {
+        this._renderer._removeArrows(this);
+        L.CircleMarker.prototype.onRemove.call(this);
+    },
 
     // generic L.setOptions
     // don't allow override arrow options
     setOptions: function (obj, options) {
         for (var i in options) {
             if (i === 'arrow') {
-                obj.options[i] = L.extend(obj.options[i], options[i])
+                obj.options[i] = L.extend({}, obj.options[i], options[i])
             } else {
                 obj.options[i] = options[i];
             }
@@ -94,53 +47,34 @@ L.Viewpoint = L.CircleMarker.extend({
     	return obj.options;
     },
 
-    _createArrows: function () {
-        var directions = this.options.directions,
-            len = directions.length,
-            arrowOptions = this.options.arrow,
-            arrow;
+    setArrowStyle: function (style) {
+        var arrowOptions = this.options.arrow;
 
-        if (!directions || !len) {
-            return;
+        for (var i in style) {
+            arrowOptions[i] = style[i];
         }
 
-        for (var i = 0; i < len; i++) {
-            arrow = this._createArrow(directions[i], arrowOptions);
-            this._arrows.push(arrow);
+
+        if (style.width || style.height) {
+            this._renderer._updateArrows(this);
         }
+
+        this._renderer._updateArrowsStyle(this);
+
+        return this;
     },
 
-    _createArrow: function (angle, options) {
-        var arrow = L.SVG.create('path');
+    setDirections: function (directions) {
+        this.options.directions = directions;
 
-        if (options.interactive) {
-            L.DomUtil.addClass(arrow, 'leaflet-interactive');
-        }
-
-        arrow.setAttribute('id', options.id + angle);
-        arrow.setAttribute('angle', angle);
-
-        // this._setArrowStyle(arrow, options);
-
-        return arrow;
+        this._resetArrows();
     },
 
-    // _setArrowStyle: function (arrow, options) {
-    //     if (options.stroke) {
-    //         arrow.setAttribute('stroke', options.color);
-    //         arrow.setAttribute('stroke-width', options.weight);
-    //         arrow.setAttribute('stroke-opacity', options.opacity);
-    //     } else {
-    //         arrow.setAttribute('stroke', 'none');
-    //     }
-    //
-    //     if (options.fill) {
-    //         arrow.setAttribute('fill', options.fillColor);
-    //         arrow.setAttribute('fill-opacity', options.fillOpacity);
-    //     } else {
-    //         arrow.setAttribute('fill', 'none');
-    //     }
-    // },
+    _resetArrows: function () {
+        this._renderer._removeArrows(this);
+        this._renderer._createArrows(this);
+        this._renderer._updateArrows(this);
+    },
 
     _updatePath: function () {
         this._renderer._updateCircle(this);

@@ -32,7 +32,7 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
         fillColor: 'green',
         weight: 0,
         fillOpacity: 1,
-        directions: directions2,
+        directions: null,
         arrow: {
             width: 3,
             height: 50,
