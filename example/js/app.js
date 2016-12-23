@@ -13,11 +13,32 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     root = document.getElementById('content');
 
     var directions = [0, 90, 180, 270];
+    var directions2 = [45, 135, 225, 315];
 
     window.vp = L.viewpoint([55.786498, 37.629888], {
         radius: 8,
         fillColor: 'green',
         weight: 0,
         fillOpacity: 1,
-        directions: directions
+        directions: directions,
+        arrow: {
+            fillColor: 'green'
+        }
     }).addTo(map);
+        console.log(vp.options.arrow);
+
+    window.vp2 = L.viewpoint([55.787098, 37.630188], {
+        radius: 8,
+        fillColor: 'green',
+        weight: 0,
+        fillOpacity: 1,
+        directions: directions2,
+        arrow: {
+            width: 3,
+            height: 50,
+            fillColor: 'blue'
+        }
+    }).addTo(map);
+
+    console.log(vp.options.arrow);
+    console.log(vp2.options.arrow);
