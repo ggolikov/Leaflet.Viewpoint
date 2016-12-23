@@ -55,7 +55,7 @@ L.Viewpoint = L.CircleMarker.extend({
         }
 
 
-        if (style.width || style.height) {
+        if (style.width || style.height || style.offset) {
             this._renderer._updateArrows(this);
         }
 
@@ -68,6 +68,10 @@ L.Viewpoint = L.CircleMarker.extend({
         this.options.directions = directions;
 
         this._resetArrows();
+    },
+
+    getDirections: function () {
+        return this.options.directions;
     },
 
     _resetArrows: function () {

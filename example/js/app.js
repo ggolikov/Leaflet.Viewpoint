@@ -9,25 +9,39 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     	attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     })
 
-    map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], center: new L.LatLng(55.786498, 37.629888), zoom: 18, maxZoom: 22}),
+    map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], center: new L.LatLng(55.787923, 37.632224), zoom: 18, maxZoom: 22}),
     root = document.getElementById('content');
 
-    var directions = [0, 90, 180, 270];
+    var directions = [0, 180];
     var directions2 = [45, 135, 225, 315];
 
-    window.vp = L.viewpoint([55.786498, 37.629888], {
+    // for (var i = 0; i < 15; i++) {
+    //     directions.push(Math.random() * 360);
+    // }
+
+    window.vp = L.viewpoint([55.787923, 37.632224], {
         radius: 8,
-        fillColor: 'green',
         weight: 0,
+        fillColor: 'green',
         fillOpacity: 1,
         directions: directions,
         arrow: {
-            fillColor: 'green'
+            offset: 5,
+            fillColor: 'black'
         }
     }).addTo(map);
-        console.log(vp.options.arrow);
 
-    window.vp2 = L.viewpoint([55.787098, 37.630188], {
+    vp._arrows.forEach(function(arrow){
+        var id = arrow.getAttribute('id'),
+            src = './images/' + id + '.JPG',
+            container = document.getElementById('content');
+
+        arrow.onclick = function() {
+            container.innerHTML = '<img src="' + src + '"/>';
+        }
+    });
+
+    window.vp2 = L.viewpoint([55.787923, 37.632224], {
         radius: 8,
         fillColor: 'green',
         weight: 0,
@@ -38,7 +52,8 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
             height: 50,
             fillColor: 'blue'
         }
-    }).addTo(map);
+    })
+    // .addTo(map);
 
-    console.log(vp.options.arrow);
-    console.log(vp2.options.arrow);
+    // console.log(vp.options.arrow);
+    // console.log(vp2.options.arrow);
