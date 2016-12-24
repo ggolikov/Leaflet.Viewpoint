@@ -31,29 +31,45 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
         }
     }).addTo(map);
 
+    vp.on('click', function(e) {
+      console.log(e);
+    })
+
     vp._arrows.forEach(function(arrow){
         var id = arrow.getAttribute('id'),
             src = './images/' + id + '.JPG',
             container = document.getElementById('content');
 
-        arrow.onclick = function() {
-            container.innerHTML = '<img src="' + src + '"/>';
+        arrow.onclick = function(e) {
+            // container.innerHTML = '<img src="' + src + '"/>';
+            console.log(e);
+            e.target.setAttribute('fill', 'yellow');
         }
     });
-
-    window.vp2 = L.viewpoint([55.787923, 37.632224], {
+console.log(vp);
+    window.vp2 = L.viewpoint([55.777923, 37.631224], {
         radius: 8,
         fillColor: 'green',
         weight: 0,
         fillOpacity: 1,
-        directions: null,
+        directions: directions,
         arrow: {
             width: 3,
             height: 50,
             fillColor: 'blue'
         }
     })
-    // .addTo(map);
-
+    .addTo(map);
     // console.log(vp.options.arrow);
     // console.log(vp2.options.arrow);
+
+    vp2._arrows.forEach(function(arrow){
+        var id = arrow.getAttribute('id'),
+            src = './images/' + id + '.JPG',
+            container = document.getElementById('content');
+
+        arrow.onclick = function(e) {
+            // container.innerHTML = '<img src="' + src + '"/>';
+            console.log(e);
+        }
+    });

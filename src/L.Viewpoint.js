@@ -6,19 +6,20 @@ L.Viewpoint = L.CircleMarker.extend({
             height: 16,
             offset: 3,
             id: null,
-		    stroke: false,
-		    color: null,
-		    weight: 0,
-		    opacity: 1,
-		    fill: true,
-		    fillColor: 'black',
-		    fillOpacity: 1
+		        stroke: false,
+		        color: null,
+		        weight: 0,
+		        opacity: 1,
+		        fill: true,
+		        fillColor: 'black',
+		        fillOpacity: 1
         },
         directions: []
     },
 
     initialize: function (latlng, options) {
         this.setOptions(this, options);
+        this.options.arrow.id = L.stamp(this);
         this._arrows = [];
 
         L.CircleMarker.prototype.initialize.call(this, latlng, this.options);
