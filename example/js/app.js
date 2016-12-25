@@ -26,27 +26,26 @@ viewPoint.on('click', showImages);
 
 function showImages(e) {
     var target = e.originalEvent.target,
-        targetId = target.getAttribute('id'),
+        targetAngle = target.angle,
         len = e.target._arrows.length,
-        match, src, container;
+        src, container;
 
-    if (!targetId || !len) {
+    if (typeof(targetAngle) === 'undefined' || !len) {
         return;
     }
 
     for (var i = 0; i < len; i++) {
         var arrow = e.target._arrows[i],
-            id = arrow.getAttribute('id'),
+            angle = arrow.angle,
             highlightColor = 'blue';
 
         if (arrow.getAttribute('fill') === highlightColor) {
             arrow.setAttribute('fill', e.target.options.arrow.fillColor);
         }
 
-        if (id === targetId) {
+        if (angle === targetAngle) {
             arrow.setAttribute('fill', highlightColor);
-            match = id.split('-');
-            src = './images/' + match[0] + '/' + match[1] + '.jpg',
+            src = './images/' + angle + '.jpg',
             container = document.getElementById('content');
             container.innerHTML = '<img src="' + src + '"/>';
         }
