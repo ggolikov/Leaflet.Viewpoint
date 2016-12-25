@@ -22,7 +22,7 @@ var vp = L.viewpoint(point1, {
     weight: 0,
     fillColor: 'green',
     fillOpacity: 1,
-    directions: [0, 180],
+    directions: [0, 179],
     arrow: {
         offset: 5,
         fillColor: 'black'
