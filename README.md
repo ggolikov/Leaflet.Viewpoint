@@ -9,9 +9,17 @@ Example
 ![l viewpoint example](https://cloud.githubusercontent.com/assets/17549928/21459122/bb3770bc-c94c-11e6-841f-d1ec4e6073a5.png)
 
 
-<!-- ## [Demo](https://ggolikov.github.io/Leaflet.River/example/) -->
+## [Demo](https://ggolikov.github.io/Leaflet.Viewpoint/example/)
 ## Usage
-creation:
+
+Installation:
+
+```
+npm install leaflet-viewpoint
+```
+
+You can specify arrow directions and style in `options` object by creating a viewpoint.
+
 ```javascript
 var directions = [0, 45, 90, 135];
 
@@ -36,6 +44,34 @@ var viewPoint = L.viewpoint([55.786456, 37.629898], {
 }).addTo(map);
 
 ```
+Don't pass arrow options in `setStyle` method, use `setArrowStyle` instead:
+
+```javascript
+viewPoint.setArrowStyle({
+    width: 10
+    height: 20
+    offset: 1,
+    stroke: true,
+    color: 'black',
+    weight: 1,
+    opacity: 0.5,
+    fill: true,
+    fillColor: 'yellow',
+    fillOpacity: 0.5
+});
+```
+
+You can always change arrows directions (in degrees):
+
+```javascript
+viewPoint.setDirections([90, 95, 100]);
+```
+
+Or get them:
+
+```javascript
+var directions = viewPoint.getDirections(); //[90, 95, 100]
+```
 
 ## API reference
 ### Factory
@@ -48,6 +84,6 @@ Method|Returns|Description
 ------|-------|-----------
 setArrowStyle(`Object`)|`this`|Set arrow style.
 setDirections(`Array`)|`this`|Set arrow directions (degrees).
-getDirections()|`Array`|Set arrow directions (degrees).
+getDirections()|`Array`|Get arrow directions (degrees).
 
 ## [License](https://opensource.org/licenses/MIT)

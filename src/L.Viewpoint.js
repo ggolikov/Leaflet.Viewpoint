@@ -6,13 +6,13 @@ L.Viewpoint = L.CircleMarker.extend({
             height: 16,
             offset: 3,
             id: null,
-		        stroke: false,
-		        color: null,
-		        weight: 0,
-		        opacity: 1,
-		        fill: true,
-		        fillColor: 'black',
-		        fillOpacity: 1
+		    stroke: false,
+		    color: null,
+		    weight: 0,
+		    opacity: 1,
+		    fill: true,
+		    fillColor: 'black',
+		    fillOpacity: 1
         },
         directions: []
     },
@@ -69,6 +69,8 @@ L.Viewpoint = L.CircleMarker.extend({
         this.options.directions = directions;
 
         this._resetArrows();
+
+        return this;
     },
 
     getDirections: function () {

@@ -12,13 +12,7 @@
     "start": "npm run watch & npm run serve"
   },
   "dependencies": {
-    "babelify": "^7.3.0",
-    "jsdoc": "^3.4.3",
-    "leaflet": "^1.0.1",
-    "leaflet-geometryutil": "^0.8.0",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "reactify": "^1.1.1"
+    "leaflet": "^1.0.2"
   },
   "devDependencies": {
     "browserify": "^13.1.1",

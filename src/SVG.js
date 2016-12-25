@@ -23,7 +23,7 @@ L.SVG.include({
         L.DomUtil.addClass(arrow, 'leaflet-interactive');
 
         arrow.setAttribute('id', options.id + '-' + angle);
-        arrow.setAttribute('angle', angle);
+        arrow.angle = angle;
 
         this._updateArrowStyle(arrow, options);
 
@@ -78,7 +78,7 @@ L.SVG.include({
             r = layer._radius,
             x = layer._point.x,
             y = layer._point.y,
-            angle = Number(arrow.getAttribute('angle')),
+            angle = arrow.angle,
 
             // first shift - radius, second shift - middlepoint of arrow basis
             dx = - (r + offset) * Math.sin(angle * Math.PI / 180) - (width / 2) * Math.sin((90 - angle) * Math.PI / 180),
@@ -87,7 +87,7 @@ L.SVG.include({
         arrow.setAttribute('d', 'M 0 0 L ' + width + ' 0 L ' + (width / 2) + ' ' + height + ' z');
         arrow.setAttribute('width', options.width);
         arrow.setAttribute('transform', 'translate(' + (x + dx) + ',' + (y + dy) + ') ' + 'rotate(' + angle + ')');
-        // this._setPath(layer, 'M 0 0 L ' + width + ' 0 L ' + (width / 2) + ' ' + height + ' z')
+
         return arrow;
     },
 
