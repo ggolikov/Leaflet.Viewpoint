@@ -58,7 +58,7 @@ function showImages(e) {
         var id = e.target._arrows[i].getAttribute('id');
         if (id === targetId) {
             match = id.split('-');
-            src = './images/' + match[0] + '/' + match[1] + '.JPG',
+            src = './images/' + match[0] + '/' + match[1] + '.jpg',
             container = document.getElementById('content');
             container.innerHTML = '<img src="' + src + '"/>';
             break;
