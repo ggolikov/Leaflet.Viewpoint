@@ -9,67 +9,62 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     	attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     })
 
-    map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], center: new L.LatLng(55.787923, 37.632224), zoom: 18, maxZoom: 22}),
+    map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], /*center: new L.LatLng(55.787923, 37.632224), zoom: 18, */maxZoom: 22}),
     root = document.getElementById('content');
 
-    var directions = [0, 180];
-    var directions2 = [45, 135, 225, 315];
+// viewpoints
 
-    // for (var i = 0; i < 15; i++) {
-    //     directions.push(Math.random() * 360);
-    // }
+var point1 = L.latLng([55.787923, 37.632224]),
+    point2 = L.latLng([55.786424, 37.629888]);
 
-    window.vp = L.viewpoint([55.787923, 37.632224], {
-        radius: 8,
-        weight: 0,
-        fillColor: 'green',
-        fillOpacity: 1,
-        directions: directions,
-        arrow: {
-            offset: 5,
-            fillColor: 'black'
-        }
-    }).addTo(map);
+var vp = L.viewpoint(point1, {
+    radius: 8,
+    weight: 0,
+    fillColor: 'green',
+    fillOpacity: 1,
+    directions: [0, 180],
+    arrow: {
+        offset: 5,
+        fillColor: 'black'
+    }
+}).addTo(map);
 
-    vp.on('click', function(e) {
-      console.log(e);
-    })
+vp.on('click', showImages);
 
-    vp._arrows.forEach(function(arrow){
-        var id = arrow.getAttribute('id'),
-            src = './images/' + id + '.JPG',
+var vp2 = L.viewpoint(point2, {
+    radius: 8,
+    fillColor: 'green',
+    weight: 0,
+    fillOpacity: 1,
+    directions: [180, 270],
+    arrow: {
+        fillColor: 'blue'
+    }
+}).addTo(map);
+
+vp2.on('click', showImages);
+
+function showImages(e) {
+    var target = e.originalEvent.target,
+        targetId = target.getAttribute('id'),
+        len = e.target._arrows.length,
+        match, src, container;
+
+    if (!targetId || !len) {
+        return;
+    }
+
+    for (var i = 0; i < len; i++) {
+        var id = e.target._arrows[i].getAttribute('id');
+        if (id === targetId) {
+            match = id.split('-');
+            src = './images/' + match[0] + '/' + match[1] + '.JPG',
             container = document.getElementById('content');
-
-        arrow.onclick = function(e) {
-            // container.innerHTML = '<img src="' + src + '"/>';
-            console.log(e);
-            e.target.setAttribute('fill', 'yellow');
+            container.innerHTML = '<img src="' + src + '"/>';
+            break;
         }
-    });
-console.log(vp);
-    window.vp2 = L.viewpoint([55.777923, 37.631224], {
-        radius: 8,
-        fillColor: 'green',
-        weight: 0,
-        fillOpacity: 1,
-        directions: directions,
-        arrow: {
-            width: 3,
-            height: 50,
-            fillColor: 'blue'
-        }
-    })
-    .addTo(map);
-    // console.log(vp.options.arrow);
-    // console.log(vp2.options.arrow);
+    }
+}
 
-    vp2._arrows.forEach(function(arrow){
-        var id = arrow.getAttribute('id'),
-            src = './images/' + id + '.JPG',
-            container = document.getElementById('content');
-
-        arrow.onclick = function(e) {
-            // container.innerHTML = '<img src="' + src + '"/>';
-            console.log(e);
-        }
-    });
+map.fitBounds(L.latLngBounds(point1, point2))
+    .setZoom(17);

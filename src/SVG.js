@@ -12,6 +12,7 @@ L.SVG.include({
 
         for (var i = 0, len = directions.length; i < len; i++) {
             arrow = this._createArrow(directions[i], arrowOptions);
+            layer.addInteractiveTarget(arrow);
             layer._arrows.push(arrow);
         }
     },
