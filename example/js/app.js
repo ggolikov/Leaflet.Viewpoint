@@ -9,7 +9,7 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     	attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     })
 
-    map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], /*center: new L.LatLng(55.787923, 37.632224), zoom: 18, */maxZoom: 22}),
+    map = new L.Map('map', {layers: [osm, OpenMapSurfer_AdminBounds], maxZoom: 22}),
     root = document.getElementById('content');
 
 // viewpoints
@@ -67,4 +67,4 @@ function showImages(e) {
 }
 
 map.fitBounds(L.latLngBounds(point1, point2))
-    .setZoom(17);
+    // .setZoom(17);

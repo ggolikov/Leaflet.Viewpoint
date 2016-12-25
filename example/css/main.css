@@ -17,10 +17,14 @@ body {
 #left-panel {
     width: 350px;
     height: 100%;
-    float: left;;
+    float: left;
 }
 #map {
     height: 100%;
+}
+
+#content {
+    margin: auto;
 }
 
 .header {
