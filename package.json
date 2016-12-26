@@ -1,6 +1,6 @@
 {
   "name": "leaflet-viewpoint",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Leaflet.Viewpoint",
   "repository": "https://github.com/ggolikov/Leaflet.Viewpoint",
   "main": "index.js",
