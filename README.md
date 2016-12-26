@@ -10,14 +10,29 @@ Example
 
 
 ## [Demo](https://ggolikov.github.io/Leaflet.Viewpoint/example/)
-## Usage
 
-Installation:
+## Installation
+requires leaflet@1.0.2
+
+browser:
+
+```html
+<script src="path/to/leaflet@1.0.2/dist/leaflet.js"></script>
+<script src="path/to/Leaflet.viewpoint.js"></script>
+```
+
+browserify:
 
 ```
 npm install leaflet-viewpoint
 ```
 
+```javascript
+require('leaflet');
+require('leaflet-viewpoint');
+```
+
+## Usage
 You can specify arrow directions and style in `options` object by creating a viewpoint.
 
 ```javascript
