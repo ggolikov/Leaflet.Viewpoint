@@ -2,7 +2,6 @@ L.SVG.include({
     _createArrows: function (layer) {
         var options = layer.options,
             directions = options.directions,
-            arrowOptions = options.arrow,
             len,
             arrow;
 
@@ -11,21 +10,22 @@ L.SVG.include({
         }
 
         for (var i = 0, len = directions.length; i < len; i++) {
-            arrow = this._createArrow(directions[i], arrowOptions);
+            arrow = this._createArrow(directions[i], options);
             layer.addInteractiveTarget(arrow);
             layer._arrows.push(arrow);
         }
     },
 
     _createArrow: function (angle, options) {
-        var arrow = L.SVG.create('path');
+        var arrow = L.SVG.create('path'),
+            arrowOptions = options.arrow;
 
         L.DomUtil.addClass(arrow, 'leaflet-interactive');
 
         arrow.setAttribute('id', options.id + '-' + angle);
         arrow.angle = angle;
 
-        this._updateArrowStyle(arrow, options);
+        this._updateArrowStyle(arrow, arrowOptions);
 
         return arrow;
     },

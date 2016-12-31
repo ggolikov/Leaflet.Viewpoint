@@ -1,11 +1,11 @@
 
 L.Viewpoint = L.CircleMarker.extend({
     options: {
+        id: null,
         arrow: {
             width: 8,
             height: 16,
             offset: 3,
-            id: null,
 		    stroke: false,
 		    color: null,
 		    weight: 0,
@@ -19,7 +19,11 @@ L.Viewpoint = L.CircleMarker.extend({
 
     initialize: function (latlng, options) {
         this.setOptions(this, options);
-        this.options.arrow.id = L.stamp(this);
+
+        if (!options.id) {
+            this.options.id = L.stamp(this);
+        }
+
         this._arrows = [];
 
         L.CircleMarker.prototype.initialize.call(this, latlng, this.options);
@@ -56,7 +60,7 @@ L.Viewpoint = L.CircleMarker.extend({
         }
 
 
-        if (style.width || style.height || style.offset) {
+        if ('width' in style || 'height' in style || 'offset' in style) {
             this._renderer._updateArrows(this);
         }
 

@@ -10,7 +10,8 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
     root = document.getElementById('content');
 
 // viewpoint
-window.viewPoint = L.viewpoint(point, {
+var viewpoint = L.viewpoint(point, {
+    id: 1,
     radius: 8,
     weight: 0,
     fillColor: 'blue',
@@ -22,7 +23,7 @@ window.viewPoint = L.viewpoint(point, {
     }
 }).addTo(map);
 
-viewPoint.on('click', showImages);
+viewpoint.on('click', showImages);
 
 function showImages(e) {
     var target = e.originalEvent.target,
