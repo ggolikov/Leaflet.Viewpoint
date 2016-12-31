@@ -38,7 +38,8 @@ You can specify arrow directions and style in `options` object by creating a vie
 ```javascript
 var directions = [0, 45, 90, 135];
 
-var viewPoint = L.viewpoint([55.786456, 37.629898], {
+var viewpoint = L.viewpoint([55.786456, 37.629898], {
+    id: 1, // if not specified, _leaflet_id will be used
     radius: 8,
     fillColor: 'green',
     fillOpacity: 1,
@@ -47,7 +48,6 @@ var viewPoint = L.viewpoint([55.786456, 37.629898], {
         width: 5    // pixels
         height: 10  // pixels
         offset: 5,  // pixels
-        id: null,
         stroke: false,
         color: null,
         weight: 0,
@@ -59,10 +59,10 @@ var viewPoint = L.viewpoint([55.786456, 37.629898], {
 }).addTo(map);
 
 ```
-Don't pass arrow options in `setStyle` method, use `setArrowStyle` instead:
+Don't pass arrow options to `setStyle` method, use `setArrowStyle` instead:
 
 ```javascript
-viewPoint.setArrowStyle({
+viewpoint.setArrowStyle({
     width: 10
     height: 20
     offset: 1,
@@ -79,20 +79,20 @@ viewPoint.setArrowStyle({
 You can always change arrows directions (in degrees):
 
 ```javascript
-viewPoint.setDirections([90, 95, 100]);
+viewpoint.setDirections([90, 95, 100]);
 ```
 
 Or get them:
 
 ```javascript
-var directions = viewPoint.getDirections(); //[90, 95, 100]
+var directions = viewpoint.getDirections(); //[90, 95, 100]
 ```
 
 ## API reference
 ### Factory
 Factory|Description
 -------|-----------
-L.viewPoint(`LatLng` _latlng_, _options?_)| Create viewpoint marker from latLng.
+L.viewpoint(`LatLng` _latlng_, _options?_)| Create viewpoint marker from latLng.
 
 ### Methods
 Method|Returns|Description

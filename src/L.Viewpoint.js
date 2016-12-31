@@ -93,6 +93,6 @@ L.Viewpoint = L.CircleMarker.extend({
     }
 });
 
-L.viewpoint = function(latlngs, options) {
+L.viewpoint = function (latlngs, options) {
     return new L.Viewpoint(latlngs, options);
 }
