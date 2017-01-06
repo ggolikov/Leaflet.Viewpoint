@@ -149,7 +149,7 @@ L.Viewpoint = L.CircleMarker.extend({
     setOptions: function (obj, options) {
         for (var i in options) {
             if (i === 'arrow') {
-                obj.options[i] = L.extend({}, obj.options[i], options[i])
+                obj.options[i] = L.extend({}, obj.options[i], options[i]);
             } else {
                 obj.options[i] = options[i];
             }

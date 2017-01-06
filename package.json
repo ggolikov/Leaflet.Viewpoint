@@ -1,8 +1,14 @@
 {
   "name": "leaflet-viewpoint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Leaflet marker with multiple directions",
   "repository": "https://github.com/ggolikov/Leaflet.Viewpoint",
+  "keywords": [
+        "leaflet",
+        "viewpoint",
+        "marker",
+        "orientedmarker"
+      ],
   "main": "index.js",
   "author": "Grigory Golikov gr.golikov@gmail.com",
   "license": "MIT",
